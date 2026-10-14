@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens.
+ * Langage visuel inspiré de neon.com (noir pur, gris froids, filets de 1px, angles droits,
+ * boutons en pilule), réécrit pour Klayer. L'accent est la teinte du teal Klayer (#10323B),
+ * éclaircie pour rester lisible sur fond noir.
+ */
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+
+  --color-black-pure: #000000;
+  --color-ink: #0c0d0d;
+
+  --color-gray-8: #131415;
+  --color-gray-10: #18191b;
+  --color-gray-15: #242628;
+  --color-gray-20: #303236;
+  --color-gray-30: #494b50;
+  --color-gray-40: #61646b;
+  --color-gray-50: #797d86;
+  --color-gray-60: #94979e;
+  --color-gray-70: #afb1b6;
+  --color-gray-80: #c9cbcf;
+  --color-gray-90: #e4e5e7;
+  --color-gray-94: #efeff0;
+  --color-gray-98: #fafafa;
+
+  /* Famille teal Klayer */
+  --color-teal-brand: #10323b;
+  --color-teal-deep: #0a2127;
+  --color-teal-night: #071619;
+  --color-teal-500: #2e9aa3;
+  --color-teal-400: #34d3d8;
+  --color-teal-300: #6fe4e7;
+  --color-teal-100: #c6e4e7;
+  --color-mint: #e2eff0;
+  --color-mint-card: #cbdee1;
+
+  --color-card: #111315;
+
+  --tracking-tighter: -0.04em;
+  --tracking-extra-tight: -0.02em;
+  --leading-dense: 1.125;
+
+  --animate-marquee: marquee 60s linear infinite;
+  --animate-blink: blink 1s step-end infinite;
+  --animate-pulse-soft: pulse-soft 2.4s ease-in-out infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      opacity: 0.35;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+  body {
+    background: var(--color-black-pure);
+    color: #ffffff;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  ::selection {
+    background: var(--color-teal-500);
+    color: #000;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-teal-400);
+    outline-offset: 2px;
+  }
+}
+
+/* Masque de fondu latéral du défilé de logos */
+.fade-x {
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+/* Surlignage façon marqueur, sur les sections claires */
+.marker {
+  background-image: linear-gradient(transparent 0.62em, rgba(46, 154, 163, 0.45) 0.62em);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Bruit discret pour les aplats */
+.noise {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}

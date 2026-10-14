@@ -1,0 +1,36 @@
+# Accueil du site Klayer, façon neon.com
+
+Date : 2026-10-14. Demandeur : Baptiste.
+
+## Intention
+
+Reproduire la page d'accueil de neon.com (structure, langage visuel, interactions) avec le propos
+et les logos de Klayer. La direction artistique est celle de Neon, pas la charte Klayer.
+
+## Décisions
+
+| Sujet | Décision | Par |
+|---|---|---|
+| Fidélité | Langage visuel reproduit au plus près, code écrit pour Klayer, aucun fichier Neon | Baptiste, après alerte juridique (dépôt Neon sans licence) |
+| Accent | Teinte du teal Klayer, éclaircie (`#34D3D8`) pour rester lisible sur noir ; `#10323B` pour les aplats | Baptiste (teal), éclaircissement : Claude |
+| Périmètre | Accueil, header avec méga-menu, menu mobile, footer | Baptiste |
+| Source d'analyse | Code source public de neon.com (`neondatabase/website`) : le site était bloqué par le réseau de l'environnement | Claude |
+| Animations | Vidéos et fichiers Rive de Neon remplacés par du canvas, du SVG et framer-motion | Claude |
+| Logos clients | Aucun : le défilé montre l'écosystème Anthropic, faute d'accord de référence signé | Règle Klayer |
+
+## Correspondance des sections
+
+| Neon | Klayer |
+|---|---|
+| Hero vidéo et logos clients | Hero à rayons animés (forme du glyphe), défilé de l'écosystème Claude |
+| 01 Build your backend, 5 cartes vidéo | 01 Nos offres, 4 Plays avec visuels animés qui défilent |
+| 02 Operate with agents, faux chat | 02 Customer Zero, un agent prépare un brouillon soumis à validation |
+| 03 Scale your app, 3 blocs | 03 Pour qui : PME (console Jumpstart), directions de fonction (cartes déplaçables), ETI (orbites) |
+| Architecture, Autoscaling, Built by, avec sommaire collant | Méthode (5 phases), Gouvernance (onglets), Qui nous sommes (3 piliers) |
+| Pricing sur fond menthe | Modes d'engagement, sans aucun prix |
+| CTA vidéo | CTA à rayons, copie de contact@klayer.ai |
+
+## Garde-fous de contenu
+
+Tout texte vient de `company.md` (positionnement, Plays, différenciateurs, réalisations
+anonymisées). Aucun chiffre, cas client, logo ni témoignage inventé.
