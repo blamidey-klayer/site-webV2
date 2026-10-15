@@ -34,3 +34,17 @@ et les logos de Klayer. La direction artistique est celle de Neon, pas la charte
 
 Tout texte vient de `company.md` (positionnement, Plays, différenciateurs, réalisations
 anonymisées). Aucun chiffre, cas client, logo ni témoignage inventé.
+
+## Itération du 2026-10-15 : les deux livres
+
+Demande de Baptiste : un livre ouvert stylisé en fond d'accueil, et un livre fantôme aux pages
+qui tournent au défilement pour « Ils nous ont fait confiance », inspirés de la sphère de neon.com.
+
+| Sujet | Décision | Par |
+|---|---|---|
+| Inspiration | Rendu de la sphère Neon (fil de fer fin, bandes de hachures serrées, mots en creux), observé en exécutant son module sous licence MIT ; aucun code repris | Claude |
+| Livre du hero | Canvas 2D, deux pages courbes en perspective, mots des quatre Plays en creux, mouvement lent | Baptiste (fond du hero) |
+| Effet | Évanescent : livre en opacité réduite, filtre bleu, flou léger et halo | Baptiste |
+| Couleur | Teal Klayer bleuté (`#7ECEE6` et voisins) | Baptiste |
+| Contenu du livre | Les six réalisations anonymes de `company.md`, une par page ; un champ `client` accueillera un nom une fois l'accord de référence signé | Baptiste |
+| Place de la section | Après « Pour qui », avant la méthode | Claude |

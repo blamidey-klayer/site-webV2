@@ -3,7 +3,7 @@ import { Button } from "@/components/shared/button";
 import { Container } from "@/components/shared/container";
 import { Marquee } from "@/components/shared/marquee";
 import { SectionLabel } from "@/components/shared/section-label";
-import { RaysCanvas } from "@/components/home/rays-canvas";
+import { BookCanvas } from "@/components/home/book-canvas";
 
 // Pas de logos clients tant qu'aucun accord de référence n'est signé : le défilé montre
 // l'écosystème sur lequel nous travaillons.
@@ -22,7 +22,8 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0 z-10">
-        <RaysCanvas className="absolute inset-0 h-full w-full" />
+        <span className="absolute inset-0 bg-[radial-gradient(60%_55%_at_72%_45%,rgba(46,120,150,0.18),transparent_70%)]" />
+        <BookCanvas className="absolute -right-[18%] top-10 h-[92%] w-[95%] opacity-50 md:-right-[6%] md:top-0 md:w-[78%] md:opacity-65" />
       </div>
       <div className="pointer-events-none absolute bottom-0 z-20 h-40 w-full bg-[linear-gradient(0deg,#000_0%,rgba(0,0,0,0)_100%)]" />
 

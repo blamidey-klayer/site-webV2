@@ -8,6 +8,7 @@ import { Engagements } from "@/components/home/engagements";
 import { Hero } from "@/components/home/hero";
 import { Offers } from "@/components/home/offers";
 import { TocSections } from "@/components/home/toc-sections";
+import { TrustBook } from "@/components/home/trust-book";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
         <Offers />
         <CustomerZero />
         <Audiences />
+        <TrustBook />
         <TocSections />
         <Engagements />
         <Cta />
