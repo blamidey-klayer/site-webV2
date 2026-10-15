@@ -23,7 +23,10 @@ export function Hero() {
     <section className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0 z-10">
         <span className="absolute inset-0 bg-[radial-gradient(60%_55%_at_72%_45%,rgba(46,120,150,0.18),transparent_70%)]" />
-        <BookCanvas className="absolute -right-[18%] top-10 h-[92%] w-[95%] opacity-50 md:-right-[6%] md:top-0 md:w-[78%] md:opacity-65" />
+        <BookCanvas
+          className="absolute -right-[30%] top-6 h-[70%] w-[120%] opacity-40 md:right-0 md:top-0 md:h-full md:w-[64%] md:opacity-75"
+          style={{ center: { x: 0.54, y: 0.6 }, size: 0.76 }}
+        />
       </div>
       <div className="pointer-events-none absolute bottom-0 z-20 h-40 w-full bg-[linear-gradient(0deg,#000_0%,rgba(0,0,0,0)_100%)]" />
 

@@ -48,3 +48,17 @@ qui tournent au défilement pour « Ils nous ont fait confiance », inspirés de
 | Couleur | Teal Klayer bleuté (`#7ECEE6` et voisins) | Baptiste |
 | Contenu du livre | Les six réalisations anonymes de `company.md`, une par page ; un champ `client` accueillera un nom une fois l'accord de référence signé | Baptiste |
 | Place de la section | Après « Pour qui », avant la méthode | Claude |
+
+## Itération du 2026-10-15 (2) : un vrai livre
+
+Demande de Baptiste : que les livres ressemblent vraiment à des livres, avec la D.A. de la sphère.
+
+- Un moteur commun (`src/components/home/book-engine.ts`) modélise le livre en 3D : couvertures
+  avec épaisseur, blocs de pages dont la tranche montre les feuilles empilées, gouttière, dos,
+  signet teal, feuille qui se courbe en tournant. Les faces sont peintes du fond vers l'avant et
+  remplies de noir, ce qui cache les traits invisibles, comme sur la sphère.
+- Les pages reprennent la sphère : bandes de hachures très serrées couvrant la page, mots gravés
+  en creux, quadrillage fin en pied de page.
+- Hero : traits blancs (la sphère est blanche), le livre se feuillette seul toutes les 7 secondes.
+- Réalisations : traits bleus, canevas à 45 % d'opacité, flou et halo ; le bloc de gauche
+  s'épaissit à mesure qu'on avance ; la description lisible de chaque page s'affiche sous le livre.

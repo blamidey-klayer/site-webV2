@@ -1,184 +1,218 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { Container } from "@/components/shared/container";
 import { SectionLabel } from "@/components/shared/section-label";
-import { cn } from "@/lib/cn";
+import { drawBook, resetMasks, type PageContent } from "@/components/home/book-engine";
 
 /*
  * « Ils nous ont fait confiance » : un livre fantôme, filtré en bleu, à peine visible, dont les
- * pages tournent au rythme du défilement. Chaque page porte une réalisation livrée, sans nom de
- * client : aucun accord de référence n'est signé à date (company.md). Pour afficher un logo plus
- * tard, il suffit de renseigner `client` dans DELIVERIES.
+ * pages tournent au rythme du défilement. Chaque page porte une réalisation livrée, gravée en
+ * creux dans les hachures. Aucun nom de client : aucun accord de référence n'est signé à date
+ * (company.md). Pour afficher un nom plus tard, renseigner `client` dans DELIVERIES.
  */
 
-type Delivery = { kind: string; title: string; text: string; client?: string };
+type Delivery = { kind: string; title: string[]; text: string; client?: string };
 
 const DELIVERIES: Delivery[] = [
   {
     kind: "Ressources humaines",
-    title: "Veille RH et SSCT",
+    title: ["Veille RH", "et SSCT"],
     text: "Un agent Claude analyse les évolutions réglementaires et conventionnelles et met à jour le book RH et SSCT.",
   },
   {
     kind: "Conformité",
-    title: "Déclarations REP",
+    title: ["Déclarations", "REP"],
     text: "Un agent Claude analyse ventes et données produits pour préparer les déclarations de responsabilité élargie du producteur.",
   },
   {
     kind: "Ressources humaines",
-    title: "Indicateurs RH et sociaux",
+    title: ["Indicateurs", "RH et sociaux"],
     text: "Un agent Claude calcule les indicateurs et produit les présentations, dans un artefact Claude.",
   },
   {
     kind: "Ventes",
-    title: "Agents inbound et outbound",
+    title: ["Agents", "inbound", "outbound"],
     text: "Qualification des demandes en brouillon et actions de prospection, conçues avec l'équipe Sales sur son CRM.",
   },
   {
     kind: "Construire",
-    title: "Application métier et API",
+    title: ["Application", "métier et API"],
     text: "Une application et ses API développées avec Claude Code, livrées au forfait.",
   },
   {
     kind: "Cadrer",
-    title: "Cadrage par fonction",
+    title: ["Cadrage", "par fonction"],
     text: "Plusieurs dizaines de processus cartographiés par fonction, avec leurs cas d'usage priorisés.",
   },
 ];
 
-// Trois feuilles : recto = réalisation impaire, verso = réalisation paire.
-const LEAVES = [0, 1, 2].map((i) => ({ front: DELIVERIES[i * 2], back: DELIVERIES[i * 2 + 1] }));
+// Page de garde, six réalisations, page de fin : quatre doubles pages, trois feuilles à tourner.
+const PAGES: PageContent[] = [
+  { lines: ["Klayer"] },
+  ...DELIVERIES.map((d) => ({ lines: d.title })),
+  { lines: ["Votre", "projet ?"] },
+];
+const TURNS = PAGES.length / 2 - 1;
 
-function PageFace({ delivery, index, side }: { delivery: Delivery; index: number; side: "left" | "right" }) {
-  return (
-    <div
-      className={cn(
-        "ghost-page absolute inset-0 flex flex-col justify-between p-[7%] [backface-visibility:hidden]",
-        side === "left" ? "border-r-0" : "border-l-0",
-      )}
-    >
-      <div className="flex items-center justify-between font-mono text-[9px] uppercase tracking-wider text-[#8fd3ea]/70 md:text-[11px]">
-        <span>{delivery.kind}</span>
-        <span>{String(index + 1).padStart(2, "0")}</span>
-      </div>
-      <div>
-        <span className="block font-mono text-[9px] uppercase tracking-wider text-[#8fd3ea]/60 md:text-[11px]">
-          {delivery.client ?? "Livré chez un client"}
-        </span>
-        <p className="mt-2 text-base leading-tight tracking-tighter text-[#d6f1fa] md:mt-3 md:text-[1.75rem]">
-          {delivery.title}
-        </p>
-        <p className="mt-2 text-[11px] leading-snug tracking-extra-tight text-[#a9dcec]/75 md:mt-3 md:text-[15px]">
-          {delivery.text}
-        </p>
-      </div>
-    </div>
-  );
+type Caption = { kind: string; text: string; client?: string };
+
+function captionAt(i: number): Caption {
+  if (i === 0) return { kind: "Registre des réalisations", text: "Ce que nous avons livré, en production." };
+  if (i === PAGES.length - 1) return { kind: "Page suivante", text: "La vôtre ? Parlons de votre projet." };
+  const d = DELIVERIES[i - 1];
+  return { kind: d.kind, text: d.text, client: d.client };
 }
 
-function Leaf({
-  progress,
-  index,
-  front,
-  back,
-}: {
-  progress: MotionValue<number>;
-  index: number;
-  front: Delivery;
-  back: Delivery;
-}) {
-  const start = 0.12 + index * 0.25;
-  const end = start + 0.22;
-  // Rotation puis léger décalage en profondeur : à droite, la première feuille est au-dessus ;
-  // une fois tournée, le décalage s'inverse et la dernière feuille tournée passe au-dessus à gauche.
-  const depth = (LEAVES.length - index) * 0.6;
-  const transform = useTransform(progress, (p) => {
-    const k = Math.min(1, Math.max(0, (p - start) / (end - start)));
-    const eased = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
-    return `rotateY(${-180 * eased}deg) translateZ(${depth}px)`;
-  });
-  const sheen = useTransform(progress, [start, (start + end) / 2, end], [0, 0.35, 0]);
+// Chaque feuille tourne au milieu de sa tranche de défilement ; le reste du temps, la double
+// page reste ouverte pour être lue.
+function toState(p: number) {
+  const x = Math.min(0.9999, Math.max(0, p)) * TURNS;
+  const spread = Math.floor(x);
+  const turn = Math.min(1, Math.max(0, (x - spread - 0.3) / 0.45));
+  // Feuille tournée : on montre directement la double page suivante.
+  return turn >= 1 ? { spread: spread + 1, turn: 0 } : { spread, turn };
+}
 
+function CaptionBlock({ index, align }: { index: number; align: "left" | "right" }) {
+  const c = captionAt(index);
   return (
     <motion.div
-      className="absolute inset-y-0 left-1/2 w-1/2 origin-left [transform-style:preserve-3d]"
-      style={{ transform }}
+      key={index}
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
+      className={align === "left" ? "md:text-right" : "md:text-left"}
     >
-      <PageFace delivery={front} index={index * 2} side="right" />
-      <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]">
-        <PageFace delivery={back} index={index * 2 + 1} side="left" />
-      </div>
-      <motion.span
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(143,211,234,0.35),transparent_60%)]"
-        style={{ opacity: sheen }}
-      />
+      <p className="font-mono text-[11px] uppercase tracking-wider text-[#8fd3ea]/80">
+        {c.kind}
+        {c.client ? ` · ${c.client}` : ""}
+      </p>
+      <p className="mt-2 text-[15px] leading-snug tracking-extra-tight text-gray-60">{c.text}</p>
     </motion.div>
   );
 }
 
 export function TrustBook() {
   const ref = useRef<HTMLElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const progress = useRef(0);
+  const [spread, setSpread] = useState(0);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  const bookOpacity = useTransform(scrollYProgress, [0, 0.08, 0.92, 1], [0.2, 0.5, 0.5, 0.2]);
-  const tilt = useTransform(scrollYProgress, [0, 1], [24, 14]);
+
+  useMotionValueEvent(scrollYProgress, "change", (p) => {
+    progress.current = p;
+    const s = toState(p);
+    setSpread(s.turn > 0.5 ? s.spread + 1 : s.spread);
+  });
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.fonts?.ready.then(resetMasks);
+
+    let raf = 0;
+    let visible = false;
+    let w = 0;
+    let h = 0;
+    let last = 0;
+
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      w = canvas.clientWidth;
+      h = canvas.clientHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    const render = (ms: number) => {
+      const { spread: s, turn } = toState(progress.current);
+      ctx.clearRect(0, 0, w, h);
+      drawBook(
+        ctx,
+        w,
+        h,
+        { pages: PAGES, spread: s, turn, read: Math.min(1, progress.current), time: ms / 1000 },
+        {
+          ink: "150, 214, 240",
+          ribbon: "52, 211, 216",
+          paper: "#000",
+          center: { x: 0.5, y: 0.62 },
+          size: 0.9,
+          reduced,
+        },
+      );
+    };
+    const loop = (ms: number) => {
+      if (visible && ms - last > 33) {
+        render(ms);
+        last = ms;
+      }
+      raf = requestAnimationFrame(loop);
+    };
+
+    resize();
+    render(0);
+    raf = requestAnimationFrame(loop);
+    const ro = new ResizeObserver(() => {
+      resize();
+      render(performance.now());
+    });
+    ro.observe(canvas);
+    const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting));
+    io.observe(canvas);
+    return () => {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+      io.disconnect();
+    };
+  }, []);
 
   return (
-    <section ref={ref} id="confiance" className="relative h-[420vh] scroll-mt-14">
-      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
-        {/* Halo bleu derrière le livre */}
+    <section ref={ref} id="confiance" className="relative h-[400vh] scroll-mt-14">
+      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden pt-14">
         <span
           aria-hidden
-          className="pointer-events-none absolute left-1/2 top-[58%] h-[70vh] w-[90vw] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(closest-side,rgba(60,140,190,0.22),transparent)]"
+          className="pointer-events-none absolute left-1/2 top-[55%] h-[70vh] w-[90vw] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(closest-side,rgba(60,140,190,0.2),transparent)]"
         />
         <Container className="relative z-10 text-center">
           <SectionLabel className="justify-center">Réalisations</SectionLabel>
-          <h2 className="mx-auto mt-5 max-w-[44rem] text-[2.25rem] font-normal leading-dense tracking-tighter md:text-5xl xl:text-[3.5rem]">
+          <h2 className="mx-auto mt-4 max-w-[44rem] text-[2.25rem] font-normal leading-dense tracking-tighter md:text-5xl xl:text-[3.5rem]">
             Ils nous ont fait confiance.
           </h2>
-          <p className="mx-auto mt-4 max-w-[34rem] text-[15px] leading-snug tracking-extra-tight text-gray-60">
+          <p className="mx-auto mt-3 max-w-[34rem] text-[15px] leading-snug tracking-extra-tight text-gray-60">
             Ce que nous avons livré, page après page. Les noms restent chez nos clients tant qu&apos;un accord de
             référence n&apos;est pas signé.
           </p>
         </Container>
 
-        {/* Opacité et filtre sur l'enveloppe : posés sur l'élément 3D, ils aplatiraient la scène. */}
-        <motion.div className="ghost-book relative z-10 mx-auto mt-10 w-[92vw] max-w-[60rem] md:mt-14" style={{ opacity: bookOpacity }}>
-          <div className="[perspective:1800px]">
-          <motion.div
-            className="relative aspect-[2/1.2] w-full [transform-style:preserve-3d]"
-            style={{ rotateX: tilt }}
-          >
-            {/* Page de garde, à gauche */}
-            <div className="ghost-page absolute inset-y-0 left-0 flex w-1/2 [transform:translateZ(-3px)] flex-col items-center justify-center gap-3 p-[7%] text-center">
-              <span className="font-mono text-[9px] uppercase tracking-wider text-[#8fd3ea]/70 md:text-[11px]">
-                Klayer · Registre des réalisations
-              </span>
-              <span className="text-lg tracking-tighter text-[#d6f1fa] md:text-3xl">Livré, en production</span>
-            </div>
-            {/* Dernière page, à droite, sous les feuilles */}
-            <div className="ghost-page absolute inset-y-0 right-0 flex w-1/2 [transform:translateZ(-3px)] flex-col items-center justify-center gap-3 p-[7%] text-center">
-              <span className="font-mono text-[9px] uppercase tracking-wider text-[#8fd3ea]/70 md:text-[11px]">
-                Page suivante
-              </span>
-              <span className="text-lg tracking-tighter text-[#d6f1fa] md:text-3xl">Votre projet ?</span>
-            </div>
-            {LEAVES.map((leaf, i) => (
-              <Leaf key={i} progress={scrollYProgress} index={i} front={leaf.front} back={leaf.back} />
-            ))}
-            {/* Reliure */}
-            <span aria-hidden className="absolute inset-y-0 left-1/2 w-px bg-[#8fd3ea]/60 [transform:translateZ(4px)]" />
-          </motion.div>
-          </div>
-        </motion.div>
+        {/* Effet fantôme : opacité, flou et halo bleu sur le canevas entier */}
+        <canvas
+          ref={canvasRef}
+          aria-hidden
+          className="relative z-10 mx-auto h-[38vh] w-full max-w-[72rem] opacity-45 mix-blend-screen [filter:blur(0.5px)_drop-shadow(0_0_18px_rgba(80,170,220,0.45))] md:h-[56vh]"
+        />
 
-        {/* Liste lisible pour les lecteurs d'écran */}
+        <Container className="relative z-10">
+          <div className="mx-auto grid max-w-[52rem] gap-4 md:grid-cols-2 md:gap-16">
+            <AnimatePresence mode="wait">
+              <CaptionBlock key={`l-${spread}`} index={spread * 2} align="left" />
+            </AnimatePresence>
+            <AnimatePresence mode="wait">
+              <CaptionBlock key={`r-${spread}`} index={spread * 2 + 1} align="right" />
+            </AnimatePresence>
+          </div>
+        </Container>
+
         <ul className="sr-only">
           {DELIVERIES.map((d) => (
-            <li key={d.title}>
-              {d.title} : {d.text}
+            <li key={d.text}>
+              {d.title.join(" ")} : {d.text}
             </li>
           ))}
         </ul>
