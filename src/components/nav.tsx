@@ -18,7 +18,7 @@ export function Nav() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled || open ? "bg-white/85 shadow-[0_1px_0_#c9cac3] backdrop-blur-xl" : "bg-transparent"
+        scrolled || open ? "bg-white/90 shadow-[0_1px_0_#c9cac3] backdrop-blur-xl" : "bg-white"
       }`}
     >
       <div className="mx-auto flex h-[72px] max-w-[1280px] items-center justify-between px-4 sm:px-8">
@@ -30,7 +30,7 @@ export function Nav() {
             <a
               key={item.href}
               href={item.href}
-              className="rounded-full px-4 py-2 text-[15px] font-medium text-secondary transition-colors hover:bg-brume hover:text-ink"
+              className="rounded-[8px] px-3.5 py-2 text-[15px] font-medium text-secondary transition-colors hover:bg-brume hover:text-ink"
             >
               {item.label}
             </a>
@@ -39,13 +39,13 @@ export function Nav() {
         <div className="flex items-center gap-2">
           <a
             href="#premier-pas"
-            className="hidden h-10 items-center rounded-full bg-teal px-5 text-sm font-semibold text-white transition-colors hover:bg-teal-deep sm:inline-flex"
+            className="hidden h-10 items-center rounded-[8px] bg-teal px-4 text-sm font-semibold text-white transition-colors hover:bg-teal-deep sm:inline-flex"
           >
             Nous contacter
           </a>
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full ring-1 ring-filet md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-[8px] ring-1 ring-filet md:hidden"
             aria-expanded={open}
             aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
             onClick={() => setOpen((v) => !v)}
@@ -64,7 +64,7 @@ export function Nav() {
               key={item.href + item.label}
               href={item.href}
               onClick={() => setOpen(false)}
-              className="block rounded-xl px-3 py-3 text-lg font-medium text-ink hover:bg-brume"
+              className="block rounded-[8px] px-3 py-3 text-lg font-medium text-ink hover:bg-brume"
             >
               {item.label}
             </a>

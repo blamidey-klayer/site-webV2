@@ -1,176 +1,173 @@
-// Textes du site. Source : Doc « Klayer · Messaging du deck », onglet Récit FR (relu le 2026-11-03).
-// Aucun chiffre, client nommé ni logo n'est introduit sans source.
+// Textes du site. Sources : deck « Klayer · Présentation 2026 · V2 » (artifact Xun5gczeGDDaX19jykMUu7)
+// et Doc « Klayer · Messaging du deck », Récit FR. Aucun chiffre, client nommé ni logo client sans source.
 
 export const nav = [
   { label: "Offres", href: "#piliers" },
   { label: "Méthode", href: "#methode" },
+  { label: "IA native", href: "#ia-native" },
   { label: "Réalisations", href: "#realisations" },
   { label: "Pourquoi Klayer", href: "#pourquoi" },
 ];
 
 export const hero = {
-  eyebrow: "Pour les entreprises",
-  title: "Claude au travail, Claude dans le code.",
-  lead: "Klayer déploie Claude au sein des fonctions métier et développe, avec Claude Code, les applications et services des DSI et des directions produit. Une boutique française 100\u00a0% dédiée à l'écosystème Anthropic.",
-  primary: { label: "Choisir notre premier pas", href: "#premier-pas" },
+  eyebrow: "Boutique française 100 % Anthropic",
+  title: ["Claude au travail,", "Claude dans le code."],
+  lead: "Klayer déploie Claude au sein des fonctions métier et développe, avec Claude Code, les applications et services des DSI et des directions produit. De la stratégie à la production.",
+  primary: { label: "Choisir votre premier pas", href: "#premier-pas" },
   secondary: { label: "Découvrir nos offres", href: "#piliers" },
-  facts: [
-    "Fondée en 2026",
-    "Admise dans le Partner Network d'Anthropic (octobre 2026)",
-    "De la stratégie à la production",
-  ],
+  facts: ["Fondée en 2026", "Partner Network d'Anthropic depuis octobre 2026"],
 };
 
 export const probleme = {
   eyebrow: "Le constat",
-  title: "L'IA reste isolée, vos projets attendent",
   items: [
-    {
-      tag: "AI for Work",
-      title: "Le temps gagné reste individuel",
-      body: "Vos équipes utilisent déjà l'IA, chacune dans son coin et souvent sans cadre. Les usages individuels ne deviennent pas encore une capacité de l'organisation.",
-    },
-    {
-      tag: "AI for Code",
-      title: "La maintenance absorbe le budget",
-      body: "L'essentiel du budget de vos équipes techniques part dans la maintenance de l'existant, et les projets qui feraient avancer l'entreprise attendent leur tour.",
-    },
+    { tag: "AI for Work", title: "Vos équipes utilisent déjà l'IA, chacune dans son coin.", body: "Souvent sans cadre, et le temps gagné reste individuel." },
+    { tag: "AI for Code", title: "Votre budget technique entretient l'existant.", body: "Les projets qui feraient avancer l'entreprise attendent leur tour." },
   ],
 };
 
-export const conviction = {
+export const bascules = {
   eyebrow: "Notre conviction",
   title: "Repenser le travail, pas ajouter un outil",
-  lead: "La valeur ne vient pas d'un outil de plus, mais de la redistribution des tâches entre les personnes et les agents, processus par processus, en production gouvernée.",
-  shifts: [
-    { from: "Des assistants qui répondent", to: "des agents qui exécutent" },
-    { from: "Des usages individuels", to: "des processus repensés" },
-    { from: "Des expérimentations isolées", to: "des usages ancrés dans le quotidien" },
+  rows: [
+    { hier: "Des assistants qui répondent", demain: "Des agents qui exécutent" },
+    { hier: "Des usages individuels", demain: "Des processus repensés" },
+    { hier: "Des expérimentations isolées", demain: "Des usages ancrés dans le quotidien" },
   ],
+  footer: "Processus par processus, en production gouvernée.",
 };
 
 export const piliers = {
   eyebrow: "Deux piliers",
-  title: "AI for Work, AI for Code",
-  lead: "Claude transforme deux choses dans l'entreprise : la façon dont les équipes travaillent, et la façon dont le logiciel se conçoit. Nous accompagnons les deux.",
+  title: "Claude transforme deux choses dans l'entreprise : la façon dont les équipes travaillent, et la façon dont le logiciel se conçoit.",
   items: [
-    {
-      tag: "AI for Work",
-      title: "Claude dans vos fonctions",
-      audience: "ETI de 200 à 2 000 salariés",
-      body: "L'IA change la façon dont les équipes travaillent au quotidien. Avec Claude, nous redéfinissons le travail de vos fonctions processus par processus, du déploiement sur le poste de chacun à la mesure de la capacité libérée.",
-      points: [
-        "Déploiement et activation de Claude dans une fonction",
-        "Refonte des processus, cas d'usage priorisés",
-        "Agents Claude en RH, en conformité et auprès des équipes Sales",
-      ],
-    },
-    {
-      tag: "AI for Code",
-      title: "Le logiciel conçu autrement",
-      audience: "DSI et directions produit d'ETI, éditeurs, scale-ups",
-      body: "Le développement assisté par l'IA change la façon de concevoir, de développer et de maintenir le logiciel. Avec Claude Code, nous construisons vos applications et services sur ce nouveau modèle, du premier MVP à la maintenance en production.",
-      points: [
-        "Concevoir : des agents aident à écrire la spécification et le plan, relus avant la première ligne de code",
-        "Développer : des agents écrivent, testent et documentent le code",
-        "Maintenir : chaque évolution repasse par les mêmes vérifications",
-      ],
-    },
+    { tag: "AI for Work", title: "Claude au sein de vos fonctions métier", audience: "ETI de 200 à 2 000 salariés", href: "#ai-work" },
+    { tag: "AI for Code", title: "Vos applications et services, conçus avec Claude Code", audience: "DSI et directions produit, éditeurs, scale-ups", href: "#ai-code" },
   ],
 };
 
-export const methode = {
-  eyebrow: "Méthode",
-  title: "Une même méthode, du cadrage au transfert",
-  lead: "Une seule exigence, quel que soit le pilier : comprendre votre métier avant de l'outiller, concevoir avec vos équipes, livrer en production, puis leur transmettre la maîtrise de ce qui a été construit.",
+export const aiWork = {
+  eyebrow: "AI for Work",
+  title: "Claude dans vos fonctions",
+  lead: "L'IA change la façon dont les équipes travaillent au quotidien. Avec Claude, nous redéfinissons le travail de vos fonctions processus par processus.",
+  footer: "Du déploiement sur le poste de chacun à la mesure de la capacité libérée.",
+  points: ["Déploiement et activation", "Refonte des processus", "Agents en RH, conformité et Sales"],
+  screens: [
+    { src: "/ecrans/sheets-budget.png", alt: "Suivi budgétaire fictif dans Google Sheets, avec un graphique budget et réalisé", w: 1568, h: 740 },
+    { src: "/ecrans/finder-dossier.png", alt: "Dossier Direction financière dans le Finder", w: 715, h: 436 },
+    { src: "/ecrans/cowork-skill.png", alt: "Cowork invoque une Skill, lit le fichier local et crée la synthèse, un document et une présentation", w: 2880, h: 1800 },
+  ],
+  caption: "Écrans illustratifs, données fictives.",
+};
+
+export const aiCode = {
+  eyebrow: "AI for Code",
+  title: "Le logiciel, conçu autrement",
+  lead: "Le développement assisté par l'IA change la façon de concevoir, de développer et de maintenir le logiciel. Avec Claude Code, nous construisons vos applications et services sur ce nouveau modèle.",
+  cta: { label: "Premier pas : un MVP au forfait", href: "#premier-pas" },
   steps: [
-    { name: "Préparer", body: "Cadrer le périmètre, les fonctions et les objectifs du programme." },
-    { name: "Comprendre", body: "Décrire le travail réel, processus par processus, et prioriser les cas d'usage." },
-    { name: "Concevoir", body: "Dessiner avec vos équipes la nouvelle répartition entre personnes et agents." },
-    { name: "Construire", body: "Livrer en production gouvernée, avec les vérifications à chaque étape." },
-    { name: "Transférer", body: "Transmettre à vos équipes la maîtrise de ce qui a été construit." },
+    { name: "Concevoir", body: "Des agents aident à écrire la spécification et le plan, relus avant la première ligne de code." },
+    { name: "Développer", body: "Des agents écrivent, testent et documentent le code." },
+    { name: "Maintenir", body: "Chaque évolution repasse par les mêmes vérifications." },
+  ],
+  screens: [
+    { src: "/ecrans/klayer-bo.webp", alt: "Klayer BO, rapport de staffing aux données fictives", w: 3024, h: 1652 },
+    { src: "/ecrans/claude-code-terminal.png", alt: "Claude Code dans le terminal : modification de code et tests", w: 2880, h: 1800 },
+  ],
+  caption: "Écrans illustratifs, données fictives.",
+};
+
+export const methode = {
+  eyebrow: "Notre méthode",
+  title: "Une seule exigence, quel que soit le pilier",
+  lead: "Comprendre votre métier avant de l'outiller, concevoir avec vos équipes, livrer en production, puis vous transmettre la maîtrise.",
+  // Résultats par étape : à valider par les fondateurs (note du deck, slide 7).
+  steps: [
+    { name: "Préparer", result: "Le cadre est posé", detail: "Ambition, périmètre, équipe" },
+    { name: "Comprendre", result: "Votre métier est cartographié", detail: "Processus et irritants réels" },
+    { name: "Concevoir", result: "Les cas d'usage sont choisis", detail: "Conçus avec vos équipes" },
+    { name: "Construire", result: "Les agents sont en production", detail: "Testés sur vos données" },
+    { name: "Transférer", result: "La maîtrise est à vous", detail: "Vos équipes sont autonomes" },
   ],
   engagements: "Modes d'engagement : régie plafonnée, forfait à tranches, fiches de mission sous contrat-cadre.",
 };
 
 export const accelerateurs = {
-  eyebrow: "Accélérateurs",
-  title: "Des actifs que nous utilisons chaque jour",
-  lead: "Chaque mission s'appuie sur des actifs que nous avons conçus : vos projets démarrent plus vite, et vos outils restent solides après notre départ.",
+  eyebrow: "Nos accélérateurs",
+  title: "Des actifs conçus chez nous, utilisés chaque jour",
+  lead: "Vos projets démarrent plus vite, et vos outils restent solides après notre départ.",
+  // À valider par les fondateurs (note du deck, slide 8).
+  memoire: ["Mémoire de l'entreprise", "Décisions", "Projets en cours", "Ressources"],
+  boucle: ["cadrer", "planifier", "construire", "vérifier", "déployer", "maintenir"],
   items: [
-    {
-      tag: "AI for Work",
-      status: "En service chez Klayer",
-      title: "L'espace de travail Klayer",
-      body: "Chaque collaborateur dispose d'une mémoire de travail qui garde le contexte de l'entreprise, ses décisions et ses dossiers d'une session à l'autre.",
-    },
-    {
-      tag: "AI for Work",
-      status: "Offre proposée",
-      title: "Klayer Always On",
-      body: "Après le déploiement, vos équipes posent leurs questions dans un canal Slack dédié. Claude y répond à toute heure et ouvre les tickets ; l'équipe Klayer livre correctifs, évolutions, formations et revues, en abonnement mensuel.",
-    },
-    {
-      tag: "AI for Code",
-      status: "Appliquée à nos dépôts",
-      title: "Développement assisté par l'IA",
-      body: "Nous outillons l'environnement des agents et concevons la boucle de chaque évolution : cadrer, planifier, construire, vérifier, déployer, maintenir. Aucun agent ne valide son propre travail.",
-    },
+    { tag: "AI for Work", title: "Espace de travail Klayer : une mémoire partagée par vos agents" },
+    { tag: "AI for Work · nouvelle offre", title: "Klayer Always On : Claude répond, notre équipe livre" },
+    { tag: "AI for Code", title: "Le harness et la boucle de nos agents" },
   ],
 };
 
-export const customerZero = {
-  eyebrow: "Customer Zero",
-  title: "Nos agents tournent chez nous d'abord",
-  lead: "Klayer est une entreprise IA native : nous l'avons construite autour de Claude, au lieu d'ajouter de l'IA à des processus existants. Nos opérations, notre delivery et notre prospection tournent sur Claude, et nos agents sont en production chez nous avant de l'être chez vous.",
-  kpi: { value: "184", unit: "pull requests", caption: "fusionnées en quatorze jours sur le Klayer BO, notre back-office de pilotage, par deux contributeurs. Mesure au 14 septembre 2026, playbook AI-Native SDLC." },
-  points: ["Claude comme tour de contrôle de nos systèmes", "Klayer BO et son serveur MCP"],
+export const iaNative = {
+  eyebrow: "IA native",
+  title: "Nous avons construit Klayer autour de Claude",
+  lead: "Au lieu d'ajouter de l'IA à des processus existants. Nos opérations, notre delivery et notre prospection tournent sur Claude.",
+  strong: "Nos agents sont en production chez nous avant de l'être chez vous.",
+  outils: [
+    { name: "HubSpot", icon: "/outils/hubspot.svg" },
+    { name: "Gmail", icon: "/outils/gmail.svg" },
+    { name: "Agenda", icon: "/outils/agenda.svg" },
+    { name: "Drive", icon: "/outils/drive.svg" },
+    { name: "Slack", icon: "/outils/slack.svg" },
+    { name: "Linear", icon: "/outils/linear.svg" },
+    { name: "GitHub", icon: "/outils/github.svg" },
+    { name: "Pennylane", icon: "/outils/pennylane.png" },
+    { name: "Granola", icon: "/outils/granola.png" },
+  ],
+  kpi: { value: "184", unit: "pull requests", caption: "fusionnées en quatorze jours sur le Klayer BO, par deux contributeurs. Mesure au 14 septembre 2026, playbook AI-Native SDLC." },
 };
 
 export const realisations = {
-  eyebrow: "Réalisations",
-  title: "Déjà livré : six réalisations chez nos clients",
-  lead: "Des agents Claude travaillent déjà en production chez nos clients, en RH, en conformité et auprès des équipes commerciales, et une application métier a été livrée avec Claude Code.",
-  note: "Clients anonymisés tant que leur accord de citation n'est pas acquis. Gains non mesurés à date.",
+  eyebrow: "Déjà livré",
+  title: "Nos deux piliers ne sont pas des promesses",
   items: [
-    { tag: "AI for Work", title: "Veille RH et SSCT", body: "Un agent Claude qui suit la veille réglementaire RH et santé, sécurité et conditions de travail." },
-    { tag: "AI for Work", title: "Déclarations REP", body: "Un agent Claude qui prépare les déclarations REP." },
-    { tag: "AI for Work", title: "Indicateurs RH et sociaux", body: "Un agent Claude qui produit les indicateurs RH et sociaux." },
-    { tag: "AI for Work", title: "Agents Sales inbound et outbound", body: "Des agents Claude pour une équipe Sales, sur son CRM, en brouillon validé." },
-    { tag: "AI for Work", title: "Cadrage d'une fonction", body: "Cadrage de plusieurs dizaines de processus, cas d'usage priorisés." },
-    { tag: "AI for Code", title: "Application métier et ses API", body: "Développée avec Claude Code et livrée au forfait." },
+    { tag: "AI for Work", title: "Veille RH et SSCT", body: "Agent de veille réglementaire" },
+    { tag: "AI for Work", title: "Déclarations REP", body: "Préparation des déclarations" },
+    { tag: "AI for Work", title: "Indicateurs RH et sociaux", body: "Préparés et commentés par un agent" },
+    { tag: "AI for Work", title: "Agents commerciaux", body: "Inbound et outbound, sur le CRM" },
+    { tag: "AI for Work", title: "Cadrage d'une fonction", body: "Plusieurs dizaines de processus priorisés" },
+    { tag: "AI for Code", title: "Application métier et ses API", body: "Développée avec Claude Code, au forfait" },
   ],
+  note: "Clients anonymisés tant que leur accord de citation n'est pas acquis. Gains non mesurés à date.",
 };
 
-export const pourquoi = {
+export const boutique = {
   eyebrow: "Pourquoi Klayer",
-  title: "Une boutique française 100\u00a0% Anthropic",
+  title: "Une boutique française 100 % Anthropic",
   items: [
-    { title: "Expertise produit native", body: "Cowork, Claude Code, API Claude, MCP : nous travaillons sur l'écosystème Anthropic, et seulement lui." },
-    { title: "Partner Network d'Anthropic", body: "Klayer est admise dans le Partner Network d'Anthropic depuis octobre 2026." },
-    { title: "Neutralité par conviction", body: "Aucune commission d'éditeur ni d'intégrateur. Nous recommandons ce qui sert le client, et rien d'autre." },
-    { title: "Un modèle boutique", body: "Une équipe resserrée de consultants et d'ingénieurs, renforcée par le Klayer Network." },
+    { icon: "star", title: "Expertise produit native", body: "Cowork, Claude Code, l'API Claude et le MCP, et rien d'autre." },
+    { icon: "scale", title: "Neutralité par conviction", body: "Aucune commission d'éditeur ni d'intégrateur. Nous recommandons ce qui sert le client, et rien d'autre." },
+    { icon: "bolt", title: "Claude au cœur de nos opérations", body: "Ce que nous déployons chez vous fait déjà tourner Klayer." },
+    { icon: "check", title: "Partner Network d'Anthropic", body: "Admise en octobre 2026. Une équipe resserrée, renforcée par le Klayer Network." },
   ],
 };
 
 export const valeurs = {
-  eyebrow: "Nos valeurs",
-  title: "Une équipe engagée sur quatre valeurs",
+  eyebrow: "Notre équipe",
+  title: "Quatre valeurs que nos clients retrouvent dans notre façon de travailler",
   items: [
-    { name: "Obsession Client", body: "Nous partons des enjeux métier de nos clients et mesurons avec eux ce que nous leur apportons. Un problème remonté a un responsable nommé le jour même." },
-    { name: "Confiance", body: "Nous tenons parole, disons ce que nous savons comme ce que nous ne savons pas, et protégeons ce qui nous est confié. Un risque se signale dès qu'il est connu." },
-    { name: "Excellence", body: "L'exigence porte sur ce que nous livrons et sur le service que nous rendons. Un livrable ne part qu'après relecture." },
-    { name: "Plaisir", body: "Une livraison réussie laisse au client l'envie d'aller plus loin avec Claude." },
+    { name: "Obsession Client", body: "Nous partons de vos enjeux métier et mesurons avec vous ce que nous apportons." },
+    { name: "Confiance", body: "Nous tenons parole, et disons ce que nous savons comme ce que nous ne savons pas." },
+    { name: "Excellence", body: "L'exigence porte sur ce que nous livrons. Rien ne part sans relecture." },
+    { name: "Plaisir", body: "Une livraison réussie donne envie d'aller plus loin avec Claude." },
   ],
 };
 
 export const premierPas = {
-  eyebrow: "Premier pas",
-  title: "Choisissons ensemble votre premier pas",
-  lead: "Commençons là où la valeur se verra le plus vite. Le reste se construit sur ce premier résultat.",
+  eyebrow: "Votre premier pas",
+  title: "Commençons là où la valeur se verra le plus vite",
+  lead: "Le reste se construit sur ce premier résultat.",
   options: [
-    { tag: "AI for Work", title: "Une première fonction", body: "Le déploiement de Claude dans une fonction où il change déjà le quotidien des équipes, ouvert si besoin par un cadrage." },
-    { tag: "AI for Code", title: "Une première application", body: "Un MVP au forfait, sur fiche de mission, livré en quelques semaines." },
+    { tag: "AI for Work", title: "Une première fonction", body: "Claude y change déjà le quotidien des équipes. Ouverte si besoin par un cadrage." },
+    { tag: "AI for Code", title: "Une première application", body: "Un MVP au forfait, livré en quelques semaines." },
   ],
   email: "contact@klayer.ai",
 };

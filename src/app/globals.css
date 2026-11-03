@@ -15,9 +15,10 @@
 
   --font-display: "Poppins", system-ui, sans-serif;
   --font-body: "Hanken Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  --radius-card: 16px;
-  --radius-panel: 28px;
+  --radius-card: 12px;
+  --radius-panel: 16px;
 }
 
 html {

@@ -8,9 +8,10 @@ const GLYPH_PATH =
 
 type Particle = { x: number; y: number; tx: number; ty: number; vx: number; vy: number; r: number; c: string; phase: number };
 
-const COLORS = ["#10323b", "#10323b", "#10323b", "#1e4b57", "#3e7280", "#ae4f2e"];
+const LIGHT = ["#10323b", "#10323b", "#10323b", "#1e4b57", "#3e7280", "#ae4f2e"];
+const DARK = ["#ffffff", "#ffffff", "#ffffff", "#cfdadd", "#3e7280", "#ae4f2e"];
 
-export function ParticleGlyph({ className }: { className?: string }) {
+export function ParticleGlyph({ className, onDark = false }: { className?: string; onDark?: boolean }) {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -19,6 +20,8 @@ export function ParticleGlyph({ className }: { className?: string }) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    const COLORS = onDark ? DARK : LIGHT;
+    const dustColor = onDark ? "rgba(255,255,255,0.35)" : "#3e7280";
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     let w = 0;
@@ -41,7 +44,7 @@ export function ParticleGlyph({ className }: { className?: string }) {
       off.height = Math.round(h);
       const o = off.getContext("2d");
       if (!o) return;
-      const scale = Math.min((w * 0.62) / 797, (h * 0.7) / 512);
+      const scale = Math.min((w * 0.8) / 797, (h * 0.62) / 512);
       const gx = (w - 797 * scale) / 2;
       const gy = (h - 512 * scale) / 2;
       o.translate(gx, gy);
@@ -76,7 +79,7 @@ export function ParticleGlyph({ className }: { className?: string }) {
       for (let i = 0; i < dust; i++) {
         const x = Math.random() * w;
         const y = Math.random() * h;
-        next.push({ x, y, tx: x, ty: y, vx: 0, vy: 0, r: 0.8 + Math.random(), c: "#3e7280", phase: Math.random() * Math.PI * 2 });
+        next.push({ x, y, tx: x, ty: y, vx: 0, vy: 0, r: 0.8 + Math.random(), c: dustColor, phase: Math.random() * Math.PI * 2 });
       }
       particles = next;
     };
@@ -139,7 +142,7 @@ export function ParticleGlyph({ className }: { className?: string }) {
       canvas.removeEventListener("pointermove", onMove);
       canvas.removeEventListener("pointerleave", onLeave);
     };
-  }, []);
+  }, [onDark]);
 
   return <canvas ref={ref} className={className} aria-hidden="true" />;
 }

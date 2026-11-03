@@ -1,18 +1,22 @@
 import { Nav } from "@/components/nav";
 import {
   Accelerateurs,
-  Conviction,
-  CustomerZero,
+  AiCode,
+  AiWork,
+  Bascules,
+  Boutique,
   Footer,
   Hero,
+  IaNative,
   Methode,
   Piliers,
-  Pourquoi,
   PremierPas,
   Probleme,
   Realisations,
+  Valeurs,
 } from "@/components/sections";
 
+// L'ordre suit le deck « Klayer · Présentation 2026 · V2 », slide par slide.
 export default function Home() {
   return (
     <>
@@ -20,13 +24,16 @@ export default function Home() {
       <main>
         <Hero />
         <Probleme />
-        <Conviction />
+        <Bascules />
         <Piliers />
+        <AiWork />
+        <AiCode />
         <Methode />
         <Accelerateurs />
-        <CustomerZero />
+        <IaNative />
         <Realisations />
-        <Pourquoi />
+        <Boutique />
+        <Valeurs />
         <PremierPas />
       </main>
       <Footer />
