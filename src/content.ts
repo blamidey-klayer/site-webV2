@@ -21,8 +21,8 @@ export const hero = {
 export const probleme = {
   eyebrow: "Le constat",
   items: [
-    { tag: "AI for Work", title: "Vos équipes utilisent déjà l'IA, chacune dans son coin.", body: "Souvent sans cadre, et le temps gagné reste individuel." },
-    { tag: "AI for Code", title: "Votre budget technique entretient l'existant.", body: "Les projets qui feraient avancer l'entreprise attendent leur tour." },
+    { tag: "AI for Work", title: "Chacun utilise l'IA dans son coin.", body: "AI for Work. Vos équipes utilisent déjà l'IA, souvent sans cadre, et le temps gagné reste individuel." },
+    { tag: "AI for Code", title: "Le budget entretient l'existant.", body: "AI for Code. La maintenance absorbe le budget technique, et les projets qui feraient avancer l'entreprise attendent leur tour." },
   ],
 };
 
@@ -39,10 +39,11 @@ export const bascules = {
 
 export const piliers = {
   eyebrow: "Deux piliers",
-  title: "Claude transforme deux choses dans l'entreprise : la façon dont les équipes travaillent, et la façon dont le logiciel se conçoit.",
+  title: "Deux piliers : le travail et le logiciel",
+  lead: "Claude transforme deux choses dans l'entreprise : la façon dont les équipes travaillent, et la façon dont le logiciel se conçoit. Nous accompagnons les deux.",
   items: [
-    { tag: "AI for Work", title: "Claude au sein de vos fonctions métier", audience: "ETI de 200 à 2 000 salariés", href: "#ai-work" },
-    { tag: "AI for Code", title: "Vos applications et services, conçus avec Claude Code", audience: "DSI et directions produit, éditeurs, scale-ups", href: "#ai-code" },
+    { tag: "AI for Work", title: "Claude dans vos fonctions", audience: "ETI de 200 à 2 000 salariés", href: "#ai-work" },
+    { tag: "AI for Code", title: "Vos applications, avec Claude Code", audience: "DSI et directions produit, éditeurs, scale-ups", href: "#ai-code" },
   ],
 };
 
@@ -94,21 +95,21 @@ export const methode = {
 
 export const accelerateurs = {
   eyebrow: "Nos accélérateurs",
-  title: "Des actifs conçus chez nous, utilisés chaque jour",
+  title: "Des actifs conçus et utilisés chez nous",
   lead: "Vos projets démarrent plus vite, et vos outils restent solides après notre départ.",
   // À valider par les fondateurs (note du deck, slide 8).
   memoire: ["Mémoire de l'entreprise", "Décisions", "Projets en cours", "Ressources"],
   boucle: ["cadrer", "planifier", "construire", "vérifier", "déployer", "maintenir"],
   items: [
-    { tag: "AI for Work", title: "Espace de travail Klayer : une mémoire partagée par vos agents" },
-    { tag: "AI for Work · nouvelle offre", title: "Klayer Always On : Claude répond, notre équipe livre" },
-    { tag: "AI for Code", title: "Le harness et la boucle de nos agents" },
+    { tag: "AI for Work", title: "Espace de travail Klayer", body: "Une mémoire partagée par vos agents. AI for Work." },
+    { tag: "AI for Work · nouvelle offre", title: "Klayer Always On", body: "Claude répond, notre équipe livre. Nouvelle offre AI for Work." },
+    { tag: "AI for Code", title: "Notre boucle de développement", body: "Le harness et la boucle que suivent nos agents. AI for Code." },
   ],
 };
 
 export const iaNative = {
   eyebrow: "IA native",
-  title: "Nous avons construit Klayer autour de Claude",
+  title: "Klayer est construite autour de Claude",
   lead: "Au lieu d'ajouter de l'IA à des processus existants. Nos opérations, notre delivery et notre prospection tournent sur Claude.",
   strong: "Nos agents sont en production chez nous avant de l'être chez vous.",
   outils: [
@@ -127,7 +128,8 @@ export const iaNative = {
 
 export const realisations = {
   eyebrow: "Déjà livré",
-  title: "Nos deux piliers ne sont pas des promesses",
+  title: "Six réalisations déjà livrées",
+  lead: "Nos deux piliers ne sont pas des promesses : des agents Claude travaillent en production chez nos clients.",
   items: [
     { tag: "AI for Work", title: "Veille RH et SSCT", body: "Agent de veille réglementaire" },
     { tag: "AI for Work", title: "Déclarations REP", body: "Préparation des déclarations" },
@@ -152,7 +154,8 @@ export const boutique = {
 
 export const valeurs = {
   eyebrow: "Notre équipe",
-  title: "Quatre valeurs que nos clients retrouvent dans notre façon de travailler",
+  title: "Quatre valeurs, une façon de travailler",
+  lead: "Une équipe resserrée de consultants et d'ingénieurs, renforcée par le Klayer Network.",
   items: [
     { name: "Obsession Client", body: "Nous partons de vos enjeux métier et mesurons avec vous ce que nous apportons." },
     { name: "Confiance", body: "Nous tenons parole, et disons ce que nous savons comme ce que nous ne savons pas." },
@@ -163,11 +166,28 @@ export const valeurs = {
 
 export const premierPas = {
   eyebrow: "Votre premier pas",
-  title: "Commençons là où la valeur se verra le plus vite",
-  lead: "Le reste se construit sur ce premier résultat.",
-  options: [
-    { tag: "AI for Work", title: "Une première fonction", body: "Claude y change déjà le quotidien des équipes. Ouverte si besoin par un cadrage." },
-    { tag: "AI for Code", title: "Une première application", body: "Un MVP au forfait, livré en quelques semaines." },
+  title: "Choisissez votre premier pas",
+  lead: "Commençons là où la valeur se verra le plus vite. Le reste se construit sur ce premier résultat.",
+  // Module « premier pas » : le visiteur choisit son pilier puis sa fonction ou son projet.
+  piliers: [
+    {
+      id: "work",
+      tag: "AI for Work",
+      question: "Quelle fonction voulez-vous transformer ?",
+      choix: ["RH", "Finance", "Sales", "Conformité", "Une autre fonction"],
+      titre: (c: string) => (c === "Une autre fonction" ? "Une première fonction" : `Votre fonction ${c}`),
+      entree: "Le déploiement de Claude dans cette fonction, là où il change déjà le quotidien des équipes. Ouvert si besoin par un cadrage de ses processus.",
+      engagement: "Régie plafonnée ou forfait à tranches.",
+    },
+    {
+      id: "code",
+      tag: "AI for Code",
+      question: "Quel projet voulez-vous lancer ?",
+      choix: ["Une application métier", "Des API", "Un produit SaaS", "Un autre projet"],
+      titre: (c: string) => c,
+      entree: "Un MVP au forfait, sur fiche de mission, conçu et livré avec Claude Code en quelques semaines.",
+      engagement: "Forfait sur fiche de mission.",
+    },
   ],
   email: "contact@klayer.ai",
 };

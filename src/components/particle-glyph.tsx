@@ -8,8 +8,8 @@ const GLYPH_PATH =
 
 type Particle = { x: number; y: number; tx: number; ty: number; vx: number; vy: number; r: number; c: string; phase: number };
 
-const LIGHT = ["#10323b", "#10323b", "#10323b", "#1e4b57", "#3e7280", "#ae4f2e"];
-const DARK = ["#ffffff", "#ffffff", "#ffffff", "#cfdadd", "#3e7280", "#ae4f2e"];
+const LIGHT = ["#10323b", "#10323b", "#10323b", "#1e4b57", "#3e7280"];
+const DARK = ["#ffffff", "#ffffff", "#ffffff", "#cfdadd", "#3e7280"];
 
 export function ParticleGlyph({ className, onDark = false }: { className?: string; onDark?: boolean }) {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -44,7 +44,7 @@ export function ParticleGlyph({ className, onDark = false }: { className?: strin
       off.height = Math.round(h);
       const o = off.getContext("2d");
       if (!o) return;
-      const scale = Math.min((w * 0.8) / 797, (h * 0.62) / 512);
+      const scale = Math.min((w * 0.96) / 797, (h * 0.8) / 512);
       const gx = (w - 797 * scale) / 2;
       const gy = (h - 512 * scale) / 2;
       o.translate(gx, gy);
