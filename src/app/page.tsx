@@ -1,29 +1,33 @@
-import { Footer } from "@/components/shared/footer";
-import { Header } from "@/components/shared/header";
-import { Topbar } from "@/components/shared/topbar";
-import { Audiences } from "@/components/home/audiences";
-import { Cta } from "@/components/home/cta";
-import { CustomerZero } from "@/components/home/customer-zero";
-import { Engagements } from "@/components/home/engagements";
-import { Hero } from "@/components/home/hero";
-import { Offers } from "@/components/home/offers";
-import { TocSections } from "@/components/home/toc-sections";
-import { TrustBook } from "@/components/home/trust-book";
+import { Nav } from "@/components/nav";
+import {
+  Accelerateurs,
+  Conviction,
+  CustomerZero,
+  Footer,
+  Hero,
+  Methode,
+  Piliers,
+  Pourquoi,
+  PremierPas,
+  Probleme,
+  Realisations,
+} from "@/components/sections";
 
 export default function Home() {
   return (
     <>
-      <Topbar />
-      <Header />
+      <Nav />
       <main>
         <Hero />
-        <Offers />
+        <Probleme />
+        <Conviction />
+        <Piliers />
+        <Methode />
+        <Accelerateurs />
         <CustomerZero />
-        <Audiences />
-        <TrustBook />
-        <TocSections />
-        <Engagements />
-        <Cta />
+        <Realisations />
+        <Pourquoi />
+        <PremierPas />
       </main>
       <Footer />
     </>
